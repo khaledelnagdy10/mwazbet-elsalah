@@ -29,7 +29,7 @@ class NextPrayerData extends StatelessWidget {
                 endIndent: 125,
               ),
               Text(
-                state.nextPrayers['name'],
+                state.nextPrayers.prayerName,
                 style: Style.bold30AllWhite(context),
               ),
               Text('3:30:20', style: Style.bold30AllWhite(context)),

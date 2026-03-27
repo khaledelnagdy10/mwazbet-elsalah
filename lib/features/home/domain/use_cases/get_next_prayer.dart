@@ -1,30 +1,38 @@
 import 'package:intl/intl.dart';
 import 'package:mwazbet_elsalah/features/home/domain/entities/entities.dart';
+import 'package:mwazbet_elsalah/features/home/domain/entities/next_prayer_entity.dart';
 
 class GetNextPrayer {
-  Map<String, dynamic> getNextPrayer({
-    required PrayerTimeEntity prayerTimeEntity,
-  }) {
+  NextPrayerEntity getNextPrayer({required PrayerEntity prayerTimeEntity}) {
     final now = DateTime.now();
+
     DateTime parse(String time) {
-      return DateFormat('h:mm a').parse(time);
+      final parsed = DateFormat('h:mm a').parse(time);
+
+      return DateTime(now.year, now.month, now.day, parsed.hour, parsed.minute);
     }
 
-    Map<String, dynamic> prayersTime = {
-      'Fajr': parse(prayerTimeEntity.fajr),
-      'Dhuhr': parse(prayerTimeEntity.duhr),
-      'Asr': parse(prayerTimeEntity.asr),
-      'Maghrib': parse(prayerTimeEntity.maghrib),
-      'Isha': parse(prayerTimeEntity.isha),
-    };
-    for (var entry in prayersTime.entries) {
-      if (entry.value.isAfter(now)) {
-        return {
-          'name': entry.key,
-          'time': DateFormat('h:mm a').format(entry.value),
-        };
+    final prayers = [
+      {'name': 'Fajr', 'time': parse(prayerTimeEntity.fajr)},
+      {'name': 'Dhuhr', 'time': parse(prayerTimeEntity.duhr)},
+      {'name': 'Asr', 'time': parse(prayerTimeEntity.asr)},
+      {'name': 'Maghrib', 'time': parse(prayerTimeEntity.maghrib)},
+      {'name': 'Isha', 'time': parse(prayerTimeEntity.isha)},
+    ];
+
+    for (var prayer in prayers) {
+      if ((prayer['time'] as DateTime).isAfter(now)) {
+        return NextPrayerEntity(
+          prayerName: prayer['name'] as String,
+          prayerTime: prayer['time'] as DateTime,
+        );
       }
     }
-    return {'name': 'Fajr', 'time': prayerTimeEntity.fajr};
+
+    final fajrTomorrow = parse(
+      prayerTimeEntity.fajr,
+    ).add(const Duration(days: 1));
+
+    return NextPrayerEntity(prayerName: 'Fajr', prayerTime: fajrTomorrow);
   }
 }

@@ -6,7 +6,7 @@ class GetPrayerTime {
 
   GetPrayerTime({required this.prayerTimeRepo});
 
-  Future<PrayerTimeEntity?> call({required String city}) async {
+  Future<PrayerEntity?> call({required String city}) async {
     return await prayerTimeRepo.getPrayerTimes(city: city);
   }
 }

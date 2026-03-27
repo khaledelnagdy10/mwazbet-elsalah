@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:mwazbet_elsalah/features/home/domain/entities/entities.dart';
+import 'package:mwazbet_elsalah/features/home/domain/entities/next_prayer_entity.dart';
 import 'package:mwazbet_elsalah/features/home/domain/use_cases/get_next_prayer.dart';
 import 'package:mwazbet_elsalah/features/home/domain/use_cases/get_prayer_time.dart';
 
@@ -18,9 +19,10 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
       final prayerTime = await getPrayerTime.call(city: city);
       if (prayerTime == null) {
         emit(PrayerTimeFailure('No data received from API'));
+        return;
       }
       final nextPrayer = getNextPrayer.getNextPrayer(
-        prayerTimeEntity: prayerTime!,
+        prayerTimeEntity: prayerTime,
       );
 
       emit(

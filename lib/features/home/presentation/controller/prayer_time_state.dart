@@ -8,8 +8,8 @@ final class PrayerTimeInitial extends PrayerTimeState {}
 final class PrayerTimeLoading extends PrayerTimeState {}
 
 final class PrayerTimeSuccess extends PrayerTimeState {
-  final PrayerTimeEntity prayerTimeEntity;
-  final Map<String, dynamic> nextPrayers;
+  final PrayerEntity prayerTimeEntity;
+  final NextPrayerEntity nextPrayers;
 
   PrayerTimeSuccess({
     required this.prayerTimeEntity,

@@ -7,7 +7,7 @@ class PrayerTimeRepoImp implements PrayerTimeRepo {
   PrayerTimeRepoImp({required this.api});
   final Api api;
   @override
-  Future<PrayerTimeEntity?> getPrayerTimes({required String city}) async {
+  Future<PrayerEntity?> getPrayerTimes({required String city}) async {
     final prayerTime = await api.getPrayerTime(city: city);
     if (prayerTime.isEmpty) return null; // حماية لو الـ API فشل
 

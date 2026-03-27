@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:mwazbet_elsalah/features/home/domain/entities/entities.dart';
 
-class PrayerTimeModel extends PrayerTimeEntity {
+class PrayerTimeModel extends PrayerEntity {
   PrayerTimeModel({
     required super.fajr,
     required super.duhr,

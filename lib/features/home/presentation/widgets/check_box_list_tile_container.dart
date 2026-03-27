@@ -4,7 +4,7 @@ import 'package:mwazbet_elsalah/features/home/presentation/widgets/check_box_lis
 
 class CheckBoxListTileContainer extends StatelessWidget {
   const CheckBoxListTileContainer({super.key, required this.prayerTimesEntity});
-  final PrayerTimeEntity prayerTimesEntity;
+  final PrayerEntity prayerTimesEntity;
   @override
   Widget build(BuildContext context) {
     return Container(
