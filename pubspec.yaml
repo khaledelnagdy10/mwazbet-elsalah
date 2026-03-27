@@ -1,0 +1,27 @@
+name: mwazbet_elsalah
+description: "A new Flutter project."
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.1
+
+dependencies:
+  curved_navigation_bar: ^1.0.6
+  dio: ^5.9.2
+  flex_color_scheme: ^8.4.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  flutter_slidable: ^4.0.3
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
