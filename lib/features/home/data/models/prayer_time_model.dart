@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:mwazbet_elsalah/features/home/domain/entities/entities.dart';
 
 class PrayerTimeModel extends PrayerTimeEntity {
@@ -8,33 +9,20 @@ class PrayerTimeModel extends PrayerTimeEntity {
     required super.maghrib,
     required super.isha,
   });
-  // final String fajr;
-  // final String duhr;
-  // final String asr;
-  // final String maghrib;
-  // final String isha;
-
-  // PrayerTimeModel({
-  //   required this.fajr,
-  //   required this.duhr,
-  //   required this.asr,
-  //   required this.maghrib,
-  //   required this.isha,
-  // });
 
   factory PrayerTimeModel.fromJson(Map<String, dynamic> json) {
     return PrayerTimeModel(
-      fajr: json['Fajr'] as String,
-      duhr: json['Dhuhr'] as String,
-      asr: json['Asr'] as String,
-      maghrib: json['Maghrib'] as String,
-      isha: json['Isha'] as String,
+      fajr: _formatTimeTo12Hour(json['Fajr'] as String),
+      duhr: _formatTimeTo12Hour(json['Dhuhr'] as String),
+      asr: _formatTimeTo12Hour(json['Asr'] as String),
+      maghrib: _formatTimeTo12Hour(json['Maghrib'] as String),
+      isha: _formatTimeTo12Hour(json['Isha'] as String),
     );
   }
-}
-// static String _formatTimeTo12Hour(String time24) {
-//     String cleanTime = time24.split(' ').first;
+  static String _formatTimeTo12Hour(String time24) {
+    String cleanTime = time24.split(' ').first;
 
-//     DateTime dateTime = DateFormat('HH:mm').parse(cleanTime);
-//     return DateFormat('h:mm a').format(dateTime);
-//   }
+    DateTime dateTime = DateFormat('HH:mm').parse(cleanTime);
+    return DateFormat('h:mm a').format(dateTime);
+  }
+}
