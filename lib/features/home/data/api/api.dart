@@ -7,10 +7,12 @@ class Api {
 
   Api({required this.dio});
 
-  Future<Map<String, dynamic>> getPrayerTime({required String city}) async {
+  Future<Map<String, dynamic>> getPrayerTime({
+    required String city,
+    required DateTime date,
+  }) async {
     try {
-      final today = DateTime.now();
-      final dateString = '${today.day}-${today.month}-${today.year}';
+      final dateString = '${date.day}-${date.month}-${date.year}';
       Response response = await dio.get(
         'https://api.aladhan.com/v1/timingsByCity/$dateString?city=$city&country=Egypt&method=5',
       );
