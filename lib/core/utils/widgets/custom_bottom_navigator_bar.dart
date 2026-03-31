@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mwazbet_elsalah/features/home/presentation/controller/prayer_time_cubit.dart';
 
 class CustomNavigatorBar extends StatefulWidget {
   const CustomNavigatorBar({super.key});
@@ -15,7 +19,23 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
     return BottomNavigationBar(
       elevation: 0,
       currentIndex: currentIndex,
-      onTap: (index) {
+      onTap: (index) async {
+        if (index == 1) {
+          DateTime? pickedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2100),
+          );
+
+          if (pickedDate != null) {
+              context.read<PrayerTimeCubit>().changeDate(pickedDate);
+
+            log("Selected date: $pickedDate");
+          }
+
+          return; 
+        }
         setState(() {
           currentIndex = index;
         });
@@ -35,7 +55,7 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
                 : Icons.calendar_month_outlined,
             size: currentIndex == 1 ? 27 : 22,
           ),
-          label: "Fav",
+          label: "Calendar",
         ),
         BottomNavigationBarItem(
           icon: Icon(
