@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mwazbet_elsalah/features/home/domain/entities/entities.dart';
+import 'package:mwazbet_elsalah/features/home/presentation/controller/prayer_time_cubit.dart';
 import 'package:mwazbet_elsalah/features/home/presentation/widgets/check_box_list_tile.dart';
 
 class CheckBoxListTileContainer extends StatelessWidget {
-  const CheckBoxListTileContainer({super.key, required this.prayerTimesEntity});
-  final PrayerEntity prayerTimesEntity;
+  const CheckBoxListTileContainer({super.key, required this.prayerEntity});
+  final PrayerEntity prayerEntity;
+
   @override
   Widget build(BuildContext context) {
+    final isFriday =
+        context.read<PrayerTimeCubit>().selectedDate.weekday == DateTime.friday;
     return Container(
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.1),
@@ -14,14 +19,14 @@ class CheckBoxListTileContainer extends StatelessWidget {
       ),
       child: Column(
         children: [
-          CheckBoxListTile(prayer: 'Fajr', prayerTime: prayerTimesEntity.fajr),
-          CheckBoxListTile(prayer: 'Duhr', prayerTime: prayerTimesEntity.duhr),
-          CheckBoxListTile(prayer: 'Asr', prayerTime: prayerTimesEntity.asr),
+          CheckBoxListTile(prayer: 'Fajr', prayerTime: prayerEntity.fajr),
           CheckBoxListTile(
-            prayer: 'Maghrib',
-            prayerTime: prayerTimesEntity.maghrib,
+            prayer: isFriday ? "Juma'a" : "Dhuhr",
+            prayerTime: prayerEntity.duhr,
           ),
-          CheckBoxListTile(prayer: 'Isha', prayerTime: prayerTimesEntity.isha),
+          CheckBoxListTile(prayer: 'Asr', prayerTime: prayerEntity.asr),
+          CheckBoxListTile(prayer: 'Maghrib', prayerTime: prayerEntity.maghrib),
+          CheckBoxListTile(prayer: 'Isha', prayerTime: prayerEntity.isha),
         ],
       ),
     );
