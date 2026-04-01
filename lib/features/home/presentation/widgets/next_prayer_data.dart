@@ -42,7 +42,7 @@ class NextPrayerData extends StatelessWidget {
               const SizedBox(height: 4),
 
               Text(
-                state.nextPrayer.prayerName,
+                ' ${state.nextPrayer.prayerName}',
                 style: Style.bold30AllWhite(context),
               ),
 
