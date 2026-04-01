@@ -16,25 +16,31 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
 
   @override
   Widget build(BuildContext context) {
+    final selectedDate = context.watch<PrayerTimeCubit>().selectedDate;
     return BottomNavigationBar(
       elevation: 0,
       currentIndex: currentIndex,
       onTap: (index) async {
         if (index == 1) {
+          setState(() {
+            currentIndex = index;
+          });
           DateTime? pickedDate = await showDatePicker(
             context: context,
-            initialDate: DateTime.now(),
+            initialDate: selectedDate,
             firstDate: DateTime(2000),
             lastDate: DateTime(2100),
           );
 
           if (pickedDate != null) {
-              context.read<PrayerTimeCubit>().changeDate(pickedDate);
+            context.read<PrayerTimeCubit>().changeDate(pickedDate);
 
             log("Selected date: $pickedDate");
           }
-
-          return; 
+          setState(() {
+            currentIndex = 0;
+          });
+          return;
         }
         setState(() {
           currentIndex = index;
@@ -42,19 +48,28 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
       },
       items: [
         BottomNavigationBarItem(
-          icon: Icon(
-            currentIndex == 0 ? Icons.home : Icons.home_outlined,
-            size: currentIndex == 0 ? 27 : 22,
+          icon: Image.asset(
+            currentIndex == 0
+                ? 'assets/images/islamic.png'
+                : 'assets/images/pray.png',
+            width: currentIndex == 0 ? 30 : 24,
+            height: currentIndex == 0 ? 30 : 24,
+            color: currentIndex == 0
+                ? Theme.of(context).colorScheme.primary
+                : Colors.grey,
           ),
           label: "Home",
         ),
         BottomNavigationBarItem(
-          icon: Icon(
-            currentIndex == 1
-                ? Icons.calendar_month
-                : Icons.calendar_month_outlined,
-            size: currentIndex == 1 ? 27 : 22,
+          icon: Image.asset(
+            'assets/images/calendar.png',
+            width: currentIndex == 1 ? 30 : 24,
+            height: currentIndex == 1 ? 30 : 24,
+            color: currentIndex == 1
+                ? Theme.of(context).colorScheme.primary
+                : Colors.grey,
           ),
+
           label: "Calendar",
         ),
         BottomNavigationBarItem(

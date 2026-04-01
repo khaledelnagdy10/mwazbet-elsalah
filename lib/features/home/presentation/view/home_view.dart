@@ -86,7 +86,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           SizedBox(height: 20),
                           CheckBoxListTileContainer(
-                            prayerTimesEntity: state.prayerTimeEntity,
+                            prayerEntity: state.prayerTimeEntity,
                           ),
                         ],
                       ),
