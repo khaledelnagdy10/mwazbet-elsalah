@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:mwazbet_elsalah/features/home/domain/entities/entities.dart';
@@ -59,6 +60,8 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
     final nextPrayer = getNextPrayer.getNextPrayer(
       prayerTimeEntity: todayNextPrayerTime!,
     );
+    log("NEXT PRAYER NAME: ${nextPrayer.prayerName}");
+    log("NEXT PRAYER TIME: ${nextPrayer.prayerTime}");
 
     _startTimer(prayerTime: nextPrayerTime, nextPrayer: nextPrayer, city: city);
   }

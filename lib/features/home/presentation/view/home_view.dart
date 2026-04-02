@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: SizedBox(height: 70, child: CustomNavigatorBar()),
+      bottomNavigationBar: CustomNavigatorBar(),
       body: BlocBuilder<PrayerTimeCubit, PrayerTimeState>(
         builder: (context, state) {
           if (state is PrayerTimeLoading) {
