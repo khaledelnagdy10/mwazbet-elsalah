@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mwazbet_elsalah/constants.dart';
 import 'package:mwazbet_elsalah/core/utils/widgets/custom_bottom_navigator_bar.dart';
+import 'package:mwazbet_elsalah/core/utils/widgets/loading.dart';
 import 'package:mwazbet_elsalah/features/home/presentation/controller/prayer_time_cubit.dart';
 import 'package:mwazbet_elsalah/features/home/presentation/widgets/check_box_list_tile_container.dart';
 import 'package:mwazbet_elsalah/features/home/presentation/widgets/current_date.dart';
@@ -31,9 +32,7 @@ class _HomeViewState extends State<HomeView> {
       body: BlocBuilder<PrayerTimeCubit, PrayerTimeState>(
         builder: (context, state) {
           if (state is PrayerTimeLoading) {
-            return Center(
-              child: CircularProgressIndicator(color: kPrimaryColor),
-            );
+            return const PrayerLoadingView();
           }
           if (state is PrayerTimeFailure) {
             return Text('Failed to load prayer times');
