@@ -62,6 +62,8 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
                         currentIndex = 0;
                       });
                     },
+                    selectedSize: 32,
+                    unselectedSize: 27,
                   ),
                   _buildItem(
                     index: 1,
@@ -72,12 +74,59 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
                       setState(() {
                         currentIndex = 1;
                       });
-
-                      DateTime? pickedDate = await showDatePicker(
+                      DateTime? pickedDate = await showGeneralDialog<DateTime>(
                         context: context,
-                        initialDate: selectedDate,
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2100),
+                        barrierDismissible: true,
+                        barrierLabel: "Calendar",
+                        barrierColor: Colors.black.withOpacity(0.4),
+
+                        transitionDuration: const Duration(milliseconds: 350),
+
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return Center(
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                ),
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(
+                                    context,
+                                  ).scaffoldBackgroundColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Theme(
+                                  data: Theme.of(context),
+                                  child: CalendarDatePicker(
+                                    initialDate: selectedDate,
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(2100),
+
+                                    onDateChanged: (date) {
+                                      Navigator.pop(context, date);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+
+                        transitionBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                              return ScaleTransition(
+                                scale: CurvedAnimation(
+                                  parent: animation,
+                                  curve: Curves.easeOutBack,
+                                ),
+                                child: FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                ),
+                              );
+                            },
                       );
 
                       if (pickedDate != null) {
@@ -90,6 +139,8 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
                         currentIndex = 0;
                       });
                     },
+                    selectedSize: 26,
+                    unselectedSize: 22,
                   ),
                   _buildItem(
                     index: 2,
@@ -101,6 +152,8 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
                         currentIndex = 2;
                       });
                     },
+                    selectedSize: 26,
+                    unselectedSize: 22,
                   ),
                 ],
               ),
@@ -117,6 +170,8 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
     required String iconUnselected,
     required String label,
     required VoidCallback onTap,
+    required double selectedSize,
+    required double unselectedSize,
   }) {
     final isSelected = currentIndex == index;
 
@@ -129,8 +184,8 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
             SizedBox(height: 7),
             Image.asset(
               isSelected ? iconSelected : iconUnselected,
-              width: isSelected ? 30 : 26,
-              height: isSelected ? 30 : 26,
+              width: isSelected ? selectedSize : unselectedSize,
+              height: isSelected ? selectedSize : unselectedSize,
               color: isSelected
                   ? Theme.of(context).colorScheme.primary
                   : Colors.grey,
