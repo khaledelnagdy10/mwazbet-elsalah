@@ -34,17 +34,19 @@ class _CheckBoxListTileState extends State<CheckBoxListTile> {
           motion: ScrollMotion(),
           children: [
             SlidableAction(
+              borderRadius: BorderRadius.circular(5),
               onPressed: (context) {
                 setState(() {
                   isPrayed = true;
                 });
               },
               backgroundColor: Colors.green.withGreen(100),
-              foregroundColor: Colors.white,
               icon: Icons.mosque,
               label: 'Prayed',
             ),
             SlidableAction(
+              borderRadius: BorderRadius.circular(5),
+
               onPressed: (context) {
                 setState(() {
                   isPrayed = false;
@@ -98,7 +100,7 @@ class _CheckBoxListTileState extends State<CheckBoxListTile> {
               });
             },
             controlAffinity: ListTileControlAffinity.leading,
-            side: BorderSide(color: Colors.green.withGreen(100), width: 1.5),
+            side: BorderSide(color: Colors.green.withGreen(150), width: 1.5),
           ),
         ),
       ),
