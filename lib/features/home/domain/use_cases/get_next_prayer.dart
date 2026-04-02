@@ -33,9 +33,6 @@ class GetNextPrayer {
       prayerTimeEntity.fajr,
     ).add(const Duration(days: 1));
 
-    return NextPrayerEntity(
-      prayerName: prayerTimeEntity.fajr,
-      prayerTime: fajrTomorrow,
-    );
+    return NextPrayerEntity(prayerName: 'Fajr', prayerTime: fajrTomorrow);
   }
 }
