@@ -18,6 +18,7 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
   Widget build(BuildContext context) {
     final selectedDate = context.watch<PrayerTimeCubit>().selectedDate;
     return BottomNavigationBar(
+      backgroundColor: Colors.transparent.withOpacity(0.6),
       elevation: 0,
       currentIndex: currentIndex,
       onTap: (index) async {
@@ -52,8 +53,8 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
             currentIndex == 0
                 ? 'assets/images/islamic.png'
                 : 'assets/images/pray.png',
-            width: currentIndex == 0 ? 30 : 24,
-            height: currentIndex == 0 ? 30 : 24,
+            width: currentIndex == 0 ? 30 : 28,
+            height: currentIndex == 0 ? 30 : 28,
             color: currentIndex == 0
                 ? Theme.of(context).colorScheme.primary
                 : Colors.grey,
@@ -63,8 +64,8 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
         BottomNavigationBarItem(
           icon: Image.asset(
             'assets/images/calendar.png',
-            width: currentIndex == 1 ? 30 : 24,
-            height: currentIndex == 1 ? 30 : 24,
+            width: currentIndex == 1 ? 28 : 21,
+            height: currentIndex == 1 ? 28 : 21,
             color: currentIndex == 1
                 ? Theme.of(context).colorScheme.primary
                 : Colors.grey,
@@ -73,10 +74,15 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
           label: "Calendar",
         ),
         BottomNavigationBarItem(
-          icon: Icon(
-            currentIndex == 2 ? Icons.person : Icons.person_outline,
-            size: currentIndex == 2 ? 27 : 22,
+          icon: Image.asset(
+            'assets/images/user.png',
+            width: currentIndex == 2 ? 26 : 23,
+            height: currentIndex == 2 ? 26 : 23,
+            color: currentIndex == 2
+                ? Theme.of(context).colorScheme.primary
+                : Colors.grey,
           ),
+
           label: "Profile",
         ),
       ],
