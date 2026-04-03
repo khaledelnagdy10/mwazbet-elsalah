@@ -46,15 +46,13 @@ class _CheckBoxListTileState extends State<CheckBoxListTile> {
             ),
             SlidableAction(
               borderRadius: BorderRadius.circular(5),
-
               onPressed: (context) {
                 setState(() {
                   isPrayed = false;
                 });
               },
               backgroundColor: Colors.red.withRed(100),
-              foregroundColor: Colors.white,
-              icon: Icons.mosque,
+              icon: Icons.cancel,
               label: 'Not Prayed',
             ),
           ],
