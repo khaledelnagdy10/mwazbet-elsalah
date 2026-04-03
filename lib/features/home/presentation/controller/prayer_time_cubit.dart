@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:mwazbet_elsalah/features/home/domain/entities/entities.dart';
 import 'package:mwazbet_elsalah/features/home/domain/entities/next_prayer_entity.dart';
@@ -25,23 +26,14 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
 
   DateTime selectedDate = DateTime.now();
   String selectedCity = 'Suez';
-
-  void changeDate(DateTime newDate) {
-    selectedDate = newDate;
-
-    fetchPrayerTimes(city: selectedCity, selectedDate: newDate);
-  }
-
-  void changeCity(String city) {
-    selectedCity = city;
-
-    fetchPrayerTimes(city: city, selectedDate: selectedDate);
-  }
+  final AudioPlayer _player = AudioPlayer();
+  bool _hasPlayedAdhan = false;
 
   Future<void> fetchPrayerTimes({
     required String city,
     DateTime? selectedDate,
   }) async {
+    _hasPlayedAdhan = false;
     emit(PrayerTimeLoading());
 
     final date = selectedDate ?? this.selectedDate;
@@ -75,8 +67,13 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
 
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       final remaining = getRemainingTime(nextPrayer.prayerTime);
+      final safeRemaining = remaining.isNegative ? Duration.zero : remaining;
 
-      if (remaining.isNegative) {
+      if (remaining.inSeconds <= 0 && !_hasPlayedAdhan) {
+        _hasPlayedAdhan = true;
+        _timer?.cancel();
+        _playAdhan();
+
         fetchPrayerTimes(city: city, selectedDate: DateTime.now());
         return;
       }
@@ -85,10 +82,30 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
         PrayerTimeSuccess(
           prayerTimeEntity: prayerTime,
           nextPrayer: nextPrayer,
-          remaining: remaining,
+          remaining: safeRemaining,
         ),
       );
     });
+  }
+
+  void changeDate(DateTime newDate) {
+    selectedDate = newDate;
+
+    fetchPrayerTimes(city: selectedCity, selectedDate: newDate);
+  }
+
+  void changeCity(String city) {
+    selectedCity = city;
+
+    fetchPrayerTimes(city: city, selectedDate: selectedDate);
+  }
+
+  Future<void> _playAdhan() async {
+    await _player.play(AssetSource('audio/azan.mp3'));
+  }
+
+  Future<void> testAdhan() async {
+    await _playAdhan();
   }
 
   @override
