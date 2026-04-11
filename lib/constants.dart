@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-const kPrimaryColor = Colors.green;
+final kPrimaryColor = Color(0xFF0B5B73);
+final kTextDarkColor = Color(0xFF202020);
+final kBorderColor = Color(0xFFE6E6E6);
+final Color blueLink = Color(0xFF4C63D2);
 
 abstract class Style {
-  // 📍 Location
-  static TextStyle userLocationTextStyle(BuildContext context) {
+  static TextStyle kPrimaryTextColor(BuildContext context) {
     return TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.bold,
@@ -12,22 +14,20 @@ abstract class Style {
     );
   }
 
-  // 🩶 Grey Text
   static TextStyle text12Grey(BuildContext context) {
     return TextStyle(
       fontSize: 12,
-      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+      color: const Color(0xFF6B705C).withOpacity(0.9),
     );
   }
 
   static TextStyle text14Grey(BuildContext context) {
     return TextStyle(
       fontSize: 14,
-      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+      color: const Color(0xFF6B705C).withOpacity(0.95),
     );
   }
 
-  // 🖤 Black (Dynamic)
   static TextStyle text14Black(BuildContext context) {
     return TextStyle(
       fontSize: 14,
@@ -42,7 +42,6 @@ abstract class Style {
     );
   }
 
-  // 🔥 Bold
   static TextStyle bold16Black(BuildContext context) {
     return TextStyle(
       fontSize: 16,
@@ -55,31 +54,27 @@ abstract class Style {
     return TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.bold,
-      color: Theme.of(context).colorScheme.onPrimary,
+      color: Theme.of(context).colorScheme.onSurface,
     );
   }
 
-  static TextStyle bold20AllWhite(BuildContext context) {
-    return TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    );
-  }
+  static const TextStyle bold20AllWhite = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
 
   static TextStyle bold30White(BuildContext context) {
     return TextStyle(
       fontSize: 30,
       fontWeight: FontWeight.bold,
-      color: Theme.of(context).colorScheme.onPrimary,
+      color: Theme.of(context).colorScheme.onSurface,
     );
   }
 
-  static TextStyle bold30AllWhite(BuildContext context) {
-    return TextStyle(
-      fontSize: 30,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    );
-  }
+  static const TextStyle bold30AllWhite = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
 }
