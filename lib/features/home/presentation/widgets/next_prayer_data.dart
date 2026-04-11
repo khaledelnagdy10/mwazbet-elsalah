@@ -28,7 +28,7 @@ class NextPrayerData extends StatelessWidget {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Next Prayer', style: Style.bold20AllWhite(context)),
+              Text('Next Prayer', style: Style.bold30AllWhite),
 
               const SizedBox(height: 2),
 
@@ -43,12 +43,12 @@ class NextPrayerData extends StatelessWidget {
 
               Text(
                 ' ${state.nextPrayer.prayerName}',
-                style: Style.bold30AllWhite(context),
+                style: Style.bold30AllWhite,
               ),
 
               const SizedBox(height: 4),
 
-              Text(format(remaining), style: Style.bold30AllWhite(context)),
+              Text(format(remaining), style: Style.bold30AllWhite),
             ],
           );
         }

@@ -8,6 +8,9 @@ environment:
 
 dependencies:
   audioplayers: ^6.6.0
+  country_picker: ^2.0.27
+  country_state_city_pro: ^0.0.6
+  country_state_picker: ^0.1.2
   curved_navigation_bar: ^1.0.6
   dio: ^5.9.2
   flex_color_scheme: ^8.4.0
@@ -15,6 +18,8 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_slidable: ^4.0.3
+  geocoding: ^4.0.0
+  geolocator: ^14.0.2
   intl: ^0.20.2
 
 dev_dependencies:

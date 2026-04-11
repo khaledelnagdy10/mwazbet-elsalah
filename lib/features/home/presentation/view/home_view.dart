@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mwazbet_elsalah/constants.dart';
+import 'package:mwazbet_elsalah/core/data/services/location_service.dart';
 import 'package:mwazbet_elsalah/core/utils/widgets/custom_bottom_navigator_bar.dart';
 import 'package:mwazbet_elsalah/core/utils/widgets/loading.dart';
 import 'package:mwazbet_elsalah/features/home/presentation/controller/prayer_time_cubit.dart';
@@ -8,6 +11,7 @@ import 'package:mwazbet_elsalah/features/home/presentation/widgets/check_box_lis
 import 'package:mwazbet_elsalah/features/home/presentation/widgets/current_date.dart';
 import 'package:mwazbet_elsalah/features/home/presentation/widgets/next_prayer_container.dart';
 import 'package:mwazbet_elsalah/features/home/presentation/widgets/next_prayer_data.dart';
+import 'package:mwazbet_elsalah/features/home/presentation/widgets/prayer_azan_notification.dart';
 import 'package:mwazbet_elsalah/features/home/presentation/widgets/user_location.dart';
 
 class HomeView extends StatefulWidget {
@@ -22,13 +26,20 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
 
-    context.read<PrayerTimeCubit>().fetchPrayerTimes(city: 'Suez');
+    _init();
+  }
+
+  Future<void> _init() async {
+    final city = await LocationService().getCity();
+    log('City: $city'); // شوف بيطلع إيه في الـ console
+
+    context.read<PrayerTimeCubit>().changeCity(city);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomNavigatorBar(),
+      // bottomNavigationBar: CustomNavigatorBar(),
       body: BlocBuilder<PrayerTimeCubit, PrayerTimeState>(
         builder: (context, state) {
           if (state is PrayerTimeLoading) {
@@ -55,40 +66,63 @@ class _HomeViewState extends State<HomeView> {
                 ),
 
                 SafeArea(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              UserLocation(),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.notifications,
-                                  color: Style.userLocationTextStyle(
-                                    context,
-                                  ).color,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            UserLocation(),
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () async {
+                                    final city = await LocationService()
+                                        .getCity();
+                                    context.read<PrayerTimeCubit>().changeCity(
+                                      city,
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.location_on,
+                                    color: kPrimaryColor,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          CurrentDate(),
-                          SizedBox(height: 20),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [NextPrayerContainer(), NextPrayerData()],
-                          ),
-                          SizedBox(height: 20),
-                          CheckBoxListTileContainer(
-                            prayerEntity: state.prayerTimeEntity,
-                          ),
-                        ],
-                      ),
+                                IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          AzanNotificationDialog(),
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.notifications,
+                                    color: kPrimaryColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        CurrentDate(),
+                        Spacer(flex: 1),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [NextPrayerContainer(), NextPrayerData()],
+                        ),
+                        SizedBox(height: 20),
+                        CheckBoxListTileContainer(
+                          prayerEntity: state.prayerTimeEntity,
+                        ),
+
+                        Spacer(flex: 2),
+
+                        CustomNavigatorBar(),
+                      ],
                     ),
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mwazbet_elsalah/features/home/presentation/controller/prayer_time_cubit.dart';
@@ -17,149 +18,185 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
   Widget build(BuildContext context) {
     final selectedDate = context.watch<PrayerTimeCubit>().selectedDate;
 
-    return Container(
-      height: 70,
-      margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-      decoration: BoxDecoration(
-        color: Colors.transparent.withOpacity(0.02),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final itemWidth = constraints.maxWidth / 3;
-          const indicatorWidth = 60.0;
-
-          return Stack(
-            children: [
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-                left:
-                    currentIndex * itemWidth +
-                    (itemWidth / 2) -
-                    (indicatorWidth / 2),
-                top: 4,
-                child: Container(
-                  width: indicatorWidth,
-                  height: 2,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+    return SizedBox(
+      height: 80,
+      child: Stack(
+        children: [
+          // ✅ الصورة بنفس حجم الـ container بالظبط
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: Container(color: Colors.black.withOpacity(0.3)),
               ),
+              //  Image.asset(
+              //   'assets/images/image (2).png',
+              //   fit: BoxFit.cover,
+              //   width: double.infinity,
+              //   height: double.infinity,
+              //   color: Colors.transparent.withValues(alpha: 0.1),
+              //   colorBlendMode: BlendMode.lighten,
+              //   // 👈 زود الشفافية هنا
+              // ),
+            ),
+          ),
 
-              // 👇 العناصر
-              Row(
-                children: [
-                  _buildItem(
-                    index: 0,
-                    iconSelected: 'assets/images/islamic.png',
-                    iconUnselected: 'assets/images/pray.png',
-                    label: "Home",
-                    onTap: () {
-                      setState(() {
-                        currentIndex = 0;
-                      });
-                    },
-                    selectedSize: 32,
-                    unselectedSize: 27,
-                  ),
-                  _buildItem(
-                    index: 1,
-                    iconSelected: 'assets/images/calendar.png',
-                    iconUnselected: 'assets/images/calendar.png',
-                    label: "Calendar",
-                    onTap: () async {
-                      setState(() {
-                        currentIndex = 1;
-                      });
-                      DateTime? pickedDate = await showGeneralDialog<DateTime>(
-                        context: context,
-                        barrierDismissible: true,
-                        barrierLabel: "Calendar",
-                        barrierColor: Colors.black.withOpacity(0.4),
+          // ✅ الـ overlay + navbar
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+            decoration: BoxDecoration(
+              color: Colors.black.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(20),
+            ),
 
-                        transitionDuration: const Duration(milliseconds: 350),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final itemWidth = constraints.maxWidth / 3;
+                const indicatorWidth = 60.0;
 
-                        pageBuilder: (context, animation, secondaryAnimation) {
-                          return Center(
-                            child: Material(
-                              color: Colors.transparent,
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                ),
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(
-                                    context,
-                                  ).scaffoldBackgroundColor,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Theme(
-                                  data: Theme.of(context),
-                                  child: CalendarDatePicker(
-                                    initialDate: selectedDate,
-                                    firstDate: DateTime(2000),
-                                    lastDate: DateTime(2100),
+                return Stack(
+                  children: [
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      left:
+                          currentIndex * itemWidth +
+                          (itemWidth / 2) -
+                          (indicatorWidth / 2),
+                      top: 4,
+                      child: Container(
+                        width: indicatorWidth,
+                        height: 2,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
 
-                                    onDateChanged: (date) {
-                                      Navigator.pop(context, date);
-                                    },
+                    Row(
+                      children: [
+                        _buildItem(
+                          index: 0,
+                          iconSelected: 'assets/images/islamic.png',
+                          iconUnselected: 'assets/images/pray.png',
+                          label: "Home",
+                          onTap: () {
+                            setState(() => currentIndex = 0);
+                          },
+                          selectedSize: 32,
+                          unselectedSize: 27,
+                        ),
+
+                        // ✅ الكود الكامل للـ Calendar زي ما هو
+                        _buildItem(
+                          index: 1,
+                          iconSelected: 'assets/images/calendar.png',
+                          iconUnselected: 'assets/images/calendar.png',
+                          label: "Calendar",
+                          onTap: () async {
+                            setState(() {
+                              currentIndex = 1;
+                            });
+
+                            DateTime? pickedDate =
+                                await showGeneralDialog<DateTime>(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  barrierLabel: "Calendar",
+                                  barrierColor: Colors.black.withOpacity(0.4),
+                                  transitionDuration: const Duration(
+                                    milliseconds: 350,
                                   ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
 
-                        transitionBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                              return ScaleTransition(
-                                scale: CurvedAnimation(
-                                  parent: animation,
-                                  curve: Curves.easeOutBack,
-                                ),
-                                child: FadeTransition(
-                                  opacity: animation,
-                                  child: child,
-                                ),
+                                  pageBuilder:
+                                      (context, animation, secondaryAnimation) {
+                                        return Center(
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            child: Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 20,
+                                                  ),
+                                              padding: const EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(
+                                                  context,
+                                                ).scaffoldBackgroundColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: CalendarDatePicker(
+                                                initialDate: selectedDate,
+                                                firstDate: DateTime(2000),
+                                                lastDate: DateTime(2100),
+                                                onDateChanged: (date) {
+                                                  Navigator.pop(context, date);
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+
+                                  transitionBuilder:
+                                      (
+                                        context,
+                                        animation,
+                                        secondaryAnimation,
+                                        child,
+                                      ) {
+                                        return ScaleTransition(
+                                          scale: CurvedAnimation(
+                                            parent: animation,
+                                            curve: Curves.easeOutBack,
+                                          ),
+                                          child: FadeTransition(
+                                            opacity: animation,
+                                            child: child,
+                                          ),
+                                        );
+                                      },
+                                );
+
+                            if (pickedDate != null) {
+                              context.read<PrayerTimeCubit>().changeDate(
+                                pickedDate,
                               );
-                            },
-                      );
 
-                      if (pickedDate != null) {
-                        context.read<PrayerTimeCubit>().changeDate(pickedDate);
+                              log("Selected date: $pickedDate");
+                            }
 
-                        log("Selected date: $pickedDate");
-                      }
+                            setState(() {
+                              currentIndex = 0;
+                            });
+                          },
+                          selectedSize: 26,
+                          unselectedSize: 22,
+                        ),
 
-                      setState(() {
-                        currentIndex = 0;
-                      });
-                    },
-                    selectedSize: 26,
-                    unselectedSize: 22,
-                  ),
-                  _buildItem(
-                    index: 2,
-                    iconSelected: 'assets/images/user.png',
-                    iconUnselected: 'assets/images/people.png',
-                    label: "Profile",
-                    onTap: () {
-                      setState(() {
-                        currentIndex = 2;
-                      });
-                    },
-                    selectedSize: 26,
-                    unselectedSize: 22,
-                  ),
-                ],
-              ),
-            ],
-          );
-        },
+                        _buildItem(
+                          index: 2,
+                          iconSelected: 'assets/images/user.png',
+                          iconUnselected: 'assets/images/people.png',
+                          label: "Profile",
+                          onTap: () {
+                            setState(() => currentIndex = 2);
+                          },
+                          selectedSize: 26,
+                          unselectedSize: 22,
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -181,7 +218,7 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 7),
+            const SizedBox(height: 7),
             Image.asset(
               isSelected ? iconSelected : iconUnselected,
               width: isSelected ? selectedSize : unselectedSize,
@@ -197,7 +234,7 @@ class _CustomNavigatorBarState extends State<CustomNavigatorBar> {
                 fontSize: isSelected ? 13 : 11,
                 color: isSelected
                     ? Theme.of(context).colorScheme.primary
-                    : Colors.grey,
+                    : Colors.white,
               ),
             ),
           ],
