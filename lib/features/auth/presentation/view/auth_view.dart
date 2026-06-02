@@ -363,7 +363,7 @@ class _AuthViewState extends State<AuthView> {
                     TextSpan(
                       text: 'Create an account'.tr(),
                       style: TextStyle(
-                        color: blueLink,
+                        color: kPrimaryColor,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
