@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-final kPrimaryColor = Color(0xFF0B5B73);
+final kPrimaryColor = const Color.fromARGB(
+  255,
+  47,
+  79,
+  48,
+); // Color(0xFF1B4332); --- IGNORE ---
 final kTextDarkColor = Color(0xFF202020);
 final kBorderColor = Color(0xFFE6E6E6);
 final Color blueLink = Color(0xFF4C63D2);
@@ -10,7 +15,7 @@ abstract class Style {
     return TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.bold,
-      color: Theme.of(context).colorScheme.primary,
+      color: kPrimaryColor,
     );
   }
 

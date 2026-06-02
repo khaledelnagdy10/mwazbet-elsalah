@@ -1,4 +1,4 @@
-import 'package:mwazbet_elsalah/features/home/domain/entities/entities.dart';
+import 'package:mwazbet_elsalah/features/home/domain/entities/prayer_entities.dart';
 import 'package:mwazbet_elsalah/features/home/domain/repos/prayer_time_repo.dart';
 
 class GetPrayerTime {

@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:mwazbet_elsalah/features/home/domain/entities/entities.dart';
+import 'package:mwazbet_elsalah/features/home/domain/entities/prayer_entities.dart';
 
 class PrayerTimeModel extends PrayerEntity {
   PrayerTimeModel({
@@ -19,10 +19,12 @@ class PrayerTimeModel extends PrayerEntity {
       isha: _formatTimeTo12Hour(json['Isha'] as String),
     );
   }
-  static String _formatTimeTo12Hour(String time24) {
-    String cleanTime = time24.split(' ').first;
 
-    DateTime dateTime = DateFormat('HH:mm').parse(cleanTime);
-    return DateFormat('h:mm a').format(dateTime);
+  static String _formatTimeTo12Hour(String time24) {
+    final cleanTime = time24.split(' ').first;
+    final dateTime = DateFormat('HH:mm').parse(cleanTime);
+
+    // دائمًا يرجع AM / PM بالإنجليزية
+    return DateFormat('h:mm a', 'en').format(dateTime);
   }
 }

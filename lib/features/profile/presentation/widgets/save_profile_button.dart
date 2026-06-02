@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SaveProfileButton extends StatelessWidget {
@@ -10,10 +11,7 @@ class SaveProfileButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 50,
-      child: ElevatedButton(
-        onPressed: onTap,
-        child: const Text('Save Changes'),
-      ),
+      child: ElevatedButton(onPressed: onTap, child: Text('Save Changes'.tr())),
     );
   }
 }

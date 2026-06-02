@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "204788388795",
+    "project_id": "online-coaching-260ce",
+    "storage_bucket": "online-coaching-260ce.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204788388795:android:0234c76fba53056f1eaa9e",
+        "android_client_info": {
+          "package_name": "com.example.mwazbet_elsalah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204788388795-32b79f1gcs6d865gik7ctvrekgtimvfc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mwazbet_elsalah",
+            "certificate_hash": "52b169d09c95b111546d7885cdaef93dc8885100"
+          }
+        },
+        {
+          "client_id": "204788388795-ne01hmpda7ip1ohprhrcbmmsbpb55abt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDR5g1i_-UiQ8be0VRqC0-GFgzPzvv-34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204788388795-ne01hmpda7ip1ohprhrcbmmsbpb55abt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "204788388795-k3mdmujk8n1ved167msetbfmj5fmepao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mwazbetElsalah"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204788388795:android:79f825f60a05ea4a1eaa9e",
+        "android_client_info": {
+          "package_name": "com.example.todo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204788388795-coduo0nob9qo4cijqjnnk47sj9gt2hsq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.todo",
+            "certificate_hash": "52b169d09c95b111546d7885cdaef93dc8885100"
+          }
+        },
+        {
+          "client_id": "204788388795-ne01hmpda7ip1ohprhrcbmmsbpb55abt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDR5g1i_-UiQ8be0VRqC0-GFgzPzvv-34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204788388795-ne01hmpda7ip1ohprhrcbmmsbpb55abt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "204788388795-k3mdmujk8n1ved167msetbfmj5fmepao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mwazbetElsalah"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

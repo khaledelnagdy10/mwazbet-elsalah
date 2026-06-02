@@ -1,6 +1,6 @@
 import 'package:mwazbet_elsalah/features/home/data/api/api.dart';
 import 'package:mwazbet_elsalah/features/home/data/models/prayer_time_model.dart';
-import 'package:mwazbet_elsalah/features/home/domain/entities/entities.dart';
+import 'package:mwazbet_elsalah/features/home/domain/entities/prayer_entities.dart';
 import 'package:mwazbet_elsalah/features/home/domain/repos/prayer_time_repo.dart';
 
 class PrayerTimeRepoImp implements PrayerTimeRepo {

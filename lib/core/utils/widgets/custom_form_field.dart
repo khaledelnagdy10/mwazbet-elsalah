@@ -12,6 +12,8 @@ class CustomTextFormField extends StatelessWidget {
     this.obscureText = false,
     this.suffixIcon,
     this.onChanged,
+    this.readyOnly = false,
+    this.textColor,
   });
 
   final TextEditingController controller;
@@ -22,10 +24,13 @@ class CustomTextFormField extends StatelessWidget {
   final bool obscureText;
   final Widget? suffixIcon;
   final void Function(String)? onChanged;
+  final bool readyOnly;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: readyOnly,
       controller: controller,
       validator: validator,
       keyboardType: keyboardType,
@@ -33,14 +38,14 @@ class CustomTextFormField extends StatelessWidget {
       onChanged: onChanged,
       style: TextStyle(
         fontSize: 14,
-        color: kTextDarkColor,
+        color: textColor ?? kTextDarkColor,
         fontWeight: FontWeight.w500,
       ),
       cursorColor: kPrimaryColor,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
-          color: Colors.grey.shade400,
+          color: textColor ?? Colors.grey.shade400,
           fontSize: 13,
           fontWeight: FontWeight.w400,
         ),

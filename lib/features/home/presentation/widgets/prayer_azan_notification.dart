@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mwazbet_elsalah/features/home/presentation/controller/prayer_time_cubit.dart';
+import 'package:mwazbet_elsalah/features/home/presentation/controller/prayer_time_cubit/prayer_time_cubit.dart';
 
 class AzanNotificationDialog extends StatelessWidget {
   const AzanNotificationDialog({super.key});

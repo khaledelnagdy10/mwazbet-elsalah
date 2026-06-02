@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AuthType extends StatelessWidget {
   const AuthType({
+    super.key,
     required this.text,
     required this.selected,
     required this.onTap,

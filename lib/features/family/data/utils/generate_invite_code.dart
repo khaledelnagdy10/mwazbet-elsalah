@@ -1,0 +1,8 @@
+import 'dart:math';
+
+String generateInviteCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  final random = Random();
+
+  return List.generate(6, (_) => chars[random.nextInt(chars.length)]).join();
+}
